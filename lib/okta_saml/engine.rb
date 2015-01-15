@@ -17,7 +17,7 @@ class ActionController::Base
 
     # if no auth_code from propsol, auth using okta
     if auth_code.blank?
-      redirect_to login_path unless signed_in?
+      redirect_to saml_init_path unless signed_in?
 
     else
       ps_user_info = get_user_info(auth_code)
@@ -36,7 +36,7 @@ class ActionController::Base
           create_ps_to_cr3_mapping(ps_user_id, current_user.email, ps_token)
 
         else # since not signed into okta, send them to okta login.
-          redirect_to login_path
+          redirect_to saml_init_path
         end
       end
     end
